@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Budgets - Personal Finance Tracker</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f5f7fb;
+            color: #1f2937;
+        }
+
+
+        /* =========================
+           SIDEBAR
+        ========================= */
+
+        .sidebar {
+            position: fixed;
+
+            left: 0;
+            top: 0;
+
+            width: 240px;
+            height: 100vh;
+
+            background: #111827;
+
+            padding: 25px 15px;
+
+            color: white;
+        }
+
+
+        .logo {
+            text-align: center;
+
+            font-size: 16px;
+            font-weight: 700;
+
+            margin-bottom: 30px;
+        }
+
+
+        .menu {
+            list-style: none;
+        }
+
+
+        .menu li {
+            margin-bottom: 6px;
+        }
+
+
+        .menu a {
+            display: flex;
+
+            align-items: center;
+
+            padding: 13px 15px;
+
+            color: #d1d5db;
+
+            text-decoration: none;
+
+            border-radius: 8px;
+
+            font-size: 16px;
+
+            transition: 0.2s;
+        }
+
+
+        .menu a:hover {
+            background: #1f2937;
+
+            color: white;
+        }
+
+
+        .menu a.active {
+            background: #2563eb;
+
+            color: white;
+        }
+
+
+        .logout-link {
+            margin-top: 6px;
+        }
+
+
+        .logout-link a {
+            color: #fca5a5;
+        }
+
+
+        .logout-link a:hover {
+            background: #7f1d1d;
+
+            color: white;
+        }
+
+
+        /* =========================
+           MAIN CONTENT
+        ========================= */
+
+        .main {
+            margin-left: 240px;
+
+            padding: 35px;
+        }
+
+
+        /* =========================
+           HEADER
+        ========================= */
+
+        .header {
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            margin-bottom: 30px;
+        }
+
+
+        .header h1 {
+            font-size: 32px;
+
+            margin-bottom: 7px;
+        }
+
+
+        .header p {
+            color: #6b7280;
+
+            font-size: 16px;
+        }
+
+
+        .user-name {
+            background: white;
+
+            padding: 12px 20px;
+
+            border-radius: 10px;
+
+            box-shadow:
+                0 3px 12px rgba(0,0,0,0.08);
+        }
+
+
+        /* =========================
+           ADD BUDGET
+        ========================= */
+
+        .add-budget {
+            background: white;
+
+            padding: 25px;
+
+            border-radius: 14px;
+
+            box-shadow:
+                0 3px 15px rgba(0,0,0,0.07);
+
+            margin-bottom: 25px;
+        }
+
+
+        .add-budget h2 {
+            font-size: 20px;
+
+            margin-bottom: 20px;
+        }
+
+
+        .form {
+            display: grid;
+
+            grid-template-columns: 1fr 1fr auto;
+
+            gap: 15px;
+
+            align-items: end;
+        }
+
+
+        .form-group {
+            display: flex;
+
+            flex-direction: column;
+        }
+
+
+        .form-group label {
+            font-size: 14px;
+
+            margin-bottom: 7px;
+
+            color: #4b5563;
+        }
+
+
+        .form-group input,
+        .form-group select {
+
+            padding: 11px 12px;
+
+            border: 1px solid #d1d5db;
+
+            border-radius: 8px;
+
+            font-size: 15px;
+
+            outline: none;
+        }
+
+
+        .form-group input:focus,
+        .form-group select:focus {
+
+            border-color: #2563eb;
+        }
+
+
+        .btn {
+            background: #2563eb;
+
+            color: white;
+
+            border: none;
+
+            padding: 11px 20px;
+
+            border-radius: 8px;
+
+            cursor: pointer;
+
+            font-size: 15px;
+        }
+
+
+        .btn:hover {
+            background: #1d4ed8;
+        }
+
+
+        /* =========================
+           BUDGET LIST
+        ========================= */
+
+        .budget-section {
+            background: white;
+
+            padding: 25px;
+
+            border-radius: 14px;
+
+            box-shadow:
+                0 3px 15px rgba(0,0,0,0.07);
+        }
+
+
+        .budget-section h2 {
+            font-size: 20px;
+
+            margin-bottom: 20px;
+        }
+
+
+        .budget-table {
+            width: 100%;
+
+            border-collapse: collapse;
+        }
+
+
+        .budget-table th {
+
+            text-align: left;
+
+            padding: 13px;
+
+            background: #f3f4f6;
+
+            color: #374151;
+
+            font-size: 14px;
+        }
+
+
+        .budget-table td {
+
+            padding: 14px 13px;
+
+            border-bottom: 1px solid #e5e7eb;
+
+            font-size: 15px;
+        }
+
+
+        .budget-table tr:last-child td {
+            border-bottom: none;
+        }
+
+
+        .amount {
+            font-weight: bold;
+
+            color: #2563eb;
+        }
+
+
+        .delete-btn {
+
+            display: inline-block;
+
+            padding: 7px 12px;
+
+            background: #fee2e2;
+
+            color: #dc2626;
+
+            text-decoration: none;
+
+            border-radius: 6px;
+
+            font-size: 13px;
+        }
+
+
+        .delete-btn:hover {
+
+            background: #dc2626;
+
+            color: white;
+        }
+
+
+        /* =========================
+           EMPTY STATE
+        ========================= */
+
+        .empty {
+
+            text-align: center;
+
+            padding: 40px;
+
+            color: #6b7280;
+        }
+
+
+        .empty-icon {
+
+            font-size: 40px;
+
+            margin-bottom: 10px;
+        }
+
+
+        /* =========================
+           RESPONSIVE
+        ========================= */
+
+        @media (max-width: 900px) {
+
+            .form {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+
+        @media (max-width: 700px) {
+
+            .sidebar {
+
+                position: relative;
+
+                width: 100%;
+
+                height: auto;
+            }
+
+
+            .main {
+
+                margin-left: 0;
+
+                padding: 20px;
+            }
+
+
+            .header {
+
+                flex-direction: column;
+
+                align-items: flex-start;
+
+                gap: 15px;
+            }
+
+
+            .budget-table {
+
+                display: block;
+
+                overflow-x: auto;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     SIDEBAR
+===================================================== -->
+
+<div class="sidebar">
+
+    <div class="logo">
+        💰 Finance Tracker
+    </div>
+
+
+    <ul class="menu">
+
+
+        <!-- Dashboard -->
+
+        <li>
+
+            <a href="{{ url_for('dashboard.dashboard') }}">
+
+                🏠 Dashboard
+
+            </a>
+
+        </li>
+
+
+        <!-- Transactions -->
+
+        <li>
+
+            <a href="{{ url_for('transactions.transactions') }}">
+
+                💳 Transactions
+
+            </a>
+
+        </li>
+
+
+        <!-- Budgets -->
+
+        <li>
+
+            <a href="{{ url_for('budgets.budgets') }}"
+               class="active">
+
+                📊 Budgets
+
+            </a>
+
+        </li>
+
+
+        <!-- Goals -->
+
+        <li>
+
+            <a href="{{ url_for('goals.goals') }}">
+                
+                🎯 Goals
+
+            </a>
+
+        </li>
+
+
+        <!-- Reports -->
+
+        <li>
+
+            <a href="{{ url_for('reports.reports') }}">
+
+                📄 Reports
+
+            </a>
+
+        </li>
+
+
+        <!-- Settings -->
+
+        <li>
+
+            <a href="{{ url_for('settings.settings') }}">
+
+                ⚙️ Settings
+
+            </a>
+
+        </li>
+
+
+        <!-- Logout -->
+
+        <li class="logout-link">
+
+            <a href="{{ url_for('auth.logout') }}">
+
+                🚪 Logout
+
+            </a>
+
+        </li>
+
+
+    </ul>
+
+</div>
+
+
+
+<!-- =====================================================
+     MAIN CONTENT
+===================================================== -->
+
+<div class="main">
+
+
+    <!-- HEADER -->
+
+    <div class="header">
+
+        <div>
+
+            <h1>
+                Budgets
+            </h1>
+
+            <p>
+                Manage your monthly spending limits
+            </p>
+
+        </div>
+
+
+        <div class="user-name">
+
+            {{ current_user.name }}
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =================================================
+         ADD BUDGET
+    ================================================= -->
+
+    <div class="add-budget">
+
+        <h2>
+            Add New Budget
+        </h2>
+
+
+        <form
+            method="POST"
+            action="{{ url_for('budgets.add_budget') }}"
+            class="form"
+        >
+
+
+            <!-- CATEGORY -->
+
+            <div class="form-group">
+
+                <label for="category">
+                    Category
+                </label>
+
+
+                <select
+                    name="category"
+                    id="category"
+                    required
+                >
+
+                    <option value="">
+                        Select Category
+                    </option>
+
+                    <option value="Food">
+                        Food
+                    </option>
+
+                    <option value="Shopping">
+                        Shopping
+                    </option>
+
+                    <option value="Transport">
+                        Transport
+                    </option>
+
+                    <option value="Bills">
+                        Bills
+                    </option>
+
+                    <option value="Entertainment">
+                        Entertainment
+                    </option>
+
+                    <option value="Education">
+                        Education
+                    </option>
+
+                    <option value="Health">
+                        Health
+                    </option>
+
+                    <option value="Other">
+                        Other
+                    </option>
+
+                </select>
+
+            </div>
+
+
+
+            <!-- AMOUNT -->
+
+            <div class="form-group">
+
+                <label for="amount">
+                    Monthly Budget (₹)
+                </label>
+
+
+                <input
+                    type="number"
+                    id="amount"
+                    name="amount"
+                    placeholder="Enter amount"
+                    min="1"
+                    step="0.01"
+                    required
+                >
+
+            </div>
+
+
+
+            <!-- BUTTON -->
+
+            <button
+                type="submit"
+                class="btn"
+            >
+                + Add Budget
+            </button>
+
+
+        </form>
+
+    </div>
+
+
+
+    <!-- =================================================
+         BUDGET LIST
+    ================================================= -->
+
+    <div class="budget-section">
+
+        <h2>
+            This Month's Budgets
+        </h2>
+
+
+        {% if budgets %}
+
+        <table class="budget-table">
+
+            <thead>
+
+                <tr>
+
+                    <th>
+                        Category
+                    </th>
+
+                    <th>
+                        Budget Amount
+                    </th>
+
+                    <th>
+                        Month
+                    </th>
+
+                    <th>
+                        Action
+                    </th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody>
+
+                {% for budget in budgets %}
+
+                <tr>
+
+                    <td>
+                        {{ budget.category }}
+                    </td>
+
+
+                    <td class="amount">
+
+                        ₹{{ "%.2f"|format(budget.amount) }}
+
+                    </td>
+
+
+                    <td>
+
+                        {{ current_month }}/{{ current_year }}
+
+                    </td>
+
+
+                    <td>
+
+                        <a
+                            href="{{ url_for(
+                                'budgets.delete_budget',
+                                budget_id=budget.id
+                            ) }}"
+                            class="delete-btn"
+                            onclick="return confirm('Delete this budget?');"
+                        >
+                            Delete
+                        </a>
+
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+
+        {% else %}
+
+
+        <div class="empty">
+
+            <div class="empty-icon">
+                📊
+            </div>
+
+            <p>
+                No budgets added for this month.
+            </p>
+
+            <p>
+                Add your first budget using the form above.
+            </p>
+
+        </div>
+
+
+        {% endif %}
+
+
+    </div>
+
+
+</div>
+
+
+</body>
+
+</html>

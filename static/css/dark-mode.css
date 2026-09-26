@@ -1,0 +1,250 @@
+/* =========================================
+   GLOBAL DARK MODE
+========================================= */
+
+body.dark-mode {
+    background: #0f172a !important;
+    color: #e5e7eb !important;
+}
+
+
+/* =========================================
+   MAIN CONTENT
+========================================= */
+
+body.dark-mode .main,
+body.dark-mode .main-content,
+body.dark-mode .content,
+body.dark-mode .container,
+body.dark-mode .page-content {
+    background: #0f172a !important;
+    color: #e5e7eb !important;
+}
+
+
+/* =========================================
+   HEADINGS
+========================================= */
+
+body.dark-mode h1,
+body.dark-mode h2,
+body.dark-mode h3,
+body.dark-mode h4,
+body.dark-mode h5,
+body.dark-mode h6 {
+    color: #f8fafc !important;
+}
+
+
+/* =========================================
+   NORMAL TEXT
+========================================= */
+
+body.dark-mode p,
+body.dark-mode span,
+body.dark-mode label {
+    color: #cbd5e1;
+}
+
+
+/* =========================================
+   SECONDARY TEXT
+========================================= */
+
+body.dark-mode .subtitle,
+body.dark-mode .page-subtitle,
+body.dark-mode .description,
+body.dark-mode .card-description,
+body.dark-mode .text-muted,
+body.dark-mode small {
+    color: #94a3b8 !important;
+}
+
+
+/* =========================================
+   CARDS
+========================================= */
+
+body.dark-mode .card,
+body.dark-mode .summary-card,
+body.dark-mode .transaction-card,
+body.dark-mode .transactions-card,
+body.dark-mode .budget-card,
+body.dark-mode .goal-card,
+body.dark-mode .report-card,
+body.dark-mode .settings-card,
+body.dark-mode .action-card,
+body.dark-mode .user-box {
+    background: #1e293b !important;
+    color: #e5e7eb !important;
+    border-color: #334155 !important;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.25) !important;
+}
+
+
+/* =========================================
+   TABLE
+========================================= */
+
+body.dark-mode table {
+    background: #1e293b !important;
+    color: #e5e7eb !important;
+}
+
+body.dark-mode th {
+    background: #334155 !important;
+    color: #f8fafc !important;
+}
+
+body.dark-mode td {
+    background: #1e293b !important;
+    color: #cbd5e1 !important;
+    border-color: #334155 !important;
+}
+
+body.dark-mode tr:hover td {
+    background: #273449 !important;
+}
+
+
+/* =========================================
+   INPUTS
+========================================= */
+
+body.dark-mode input,
+body.dark-mode select,
+body.dark-mode textarea {
+    background: #0f172a !important;
+    color: #f8fafc !important;
+    border-color: #475569 !important;
+}
+
+body.dark-mode input::placeholder,
+body.dark-mode textarea::placeholder {
+    color: #64748b !important;
+}
+
+body.dark-mode select option {
+    background: #0f172a;
+    color: #f8fafc;
+}
+
+
+/* =========================================
+   BUTTONS
+========================================= */
+
+body.dark-mode button {
+    color: #ffffff;
+}
+
+body.dark-mode .btn,
+body.dark-mode .button {
+    border-color: #475569;
+}
+
+
+/* =========================================
+   SIDEBAR
+========================================= */
+
+body.dark-mode .sidebar {
+    background: #111827 !important;
+    color: #ffffff !important;
+}
+
+body.dark-mode .sidebar .nav-link {
+    color: #d1d5db !important;
+}
+
+body.dark-mode .sidebar .nav-link:hover {
+    background: #1f2937 !important;
+    color: #ffffff !important;
+}
+
+body.dark-mode .sidebar .nav-link.active {
+    background: #2563eb !important;
+    color: #ffffff !important;
+}
+
+
+/* =========================================
+   BORDERS
+========================================= */
+
+body.dark-mode hr {
+    border-color: #334155 !important;
+}
+
+
+/* =========================================
+   LINKS
+========================================= */
+
+body.dark-mode a {
+    color: #60a5fa;
+}
+
+body.dark-mode a:hover {
+    color: #93c5fd;
+}
+
+
+/* =========================================
+   INFO / EXTRA BOXES
+========================================= */
+
+body.dark-mode .info-box,
+body.dark-mode .filter-box,
+body.dark-mode .form-card,
+body.dark-mode .empty-state {
+    background: #0f172a !important;
+    color: #e5e7eb !important;
+    border-color: #334155 !important;
+}
+
+
+/* =========================================
+   PROGRESS
+========================================= */
+
+body.dark-mode .progress {
+    background: #334155 !important;
+}
+
+
+/* =========================================
+   FLASH / ALERT
+========================================= */
+
+body.dark-mode .alert {
+    border-color: #475569;
+}
+
+
+/* =========================================
+   TRANSITIONS
+========================================= */
+
+body,
+.main,
+.main-content,
+.card,
+.summary-card,
+.settings-card,
+.transactions-card,
+.budget-card,
+.goal-card,
+.report-card,
+.user-box,
+input,
+select,
+textarea,
+table,
+td,
+th {
+    transition:
+        background-color 0.25s ease,
+        color 0.25s ease,
+        border-color 0.25s ease;
+}

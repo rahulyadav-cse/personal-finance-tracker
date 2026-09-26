@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Edit Transaction - Personal Finance Tracker</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f7fb;
+            color: #333;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 700px;
+            margin: 40px auto;
+        }
+
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 3px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        h1 {
+            margin-bottom: 25px;
+            font-size: 28px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 15px;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #2563eb;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .type-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .type-option {
+            flex: 1;
+        }
+
+        .type-option input {
+            display: none;
+        }
+
+        .type-option label {
+            display: block;
+            text-align: center;
+            padding: 12px;
+            border: 2px solid #d1d5db;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .type-option input:checked + label {
+            background: #2563eb;
+            color: white;
+            border-color: #2563eb;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .btn {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: bold;
+        }
+
+        .save-btn {
+            background: #2563eb;
+            color: white;
+            flex: 1;
+        }
+
+        .save-btn:hover {
+            background: #1d4ed8;
+        }
+
+        .cancel-btn {
+            background: #e5e7eb;
+            color: #333;
+        }
+
+        .cancel-btn:hover {
+            background: #d1d5db;
+        }
+
+        .message {
+            padding: 12px 16px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+<div class="container">
+
+    <div class="card">
+
+        <h1>Edit Transaction</h1>
+
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+
+            {% if messages %}
+
+                {% for category, message in messages %}
+
+                    <div class="message">
+                        {{ message }}
+                    </div>
+
+                {% endfor %}
+
+            {% endif %}
+
+        {% endwith %}
+
+
+        <form method="POST">
+
+
+            <!-- Transaction Type -->
+
+            <div class="form-group">
+
+                <label>
+                    Transaction Type
+                </label>
+
+                <div class="type-buttons">
+
+                    <div class="type-option">
+
+                        <input
+                            type="radio"
+                            name="type"
+                            id="income"
+                            value="income"
+                            {% if transaction.type == "income" %}
+                                checked
+                            {% endif %}
+                        >
+
+                        <label for="income">
+                            Income
+                        </label>
+
+                    </div>
+
+
+                    <div class="type-option">
+
+                        <input
+                            type="radio"
+                            name="type"
+                            id="expense"
+                            value="expense"
+                            {% if transaction.type == "expense" %}
+                                checked
+                            {% endif %}
+                        >
+
+                        <label for="expense">
+                            Expense
+                        </label>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Amount -->
+
+            <div class="form-group">
+
+                <label for="amount">
+                    Amount (₹)
+                </label>
+
+                <input
+                    type="number"
+                    id="amount"
+                    name="amount"
+                    step="0.01"
+                    min="0.01"
+                    value="{{ transaction.amount }}"
+                    required
+                >
+
+            </div>
+
+
+            <!-- Category -->
+
+            <div class="form-group">
+
+                <label for="category">
+                    Category
+                </label>
+
+                <select
+                    id="category"
+                    name="category"
+                    required
+                >
+
+                    <option value="Salary"
+                        {% if transaction.category == "Salary" %}selected{% endif %}>
+                        Salary
+                    </option>
+
+                    <option value="Business"
+                        {% if transaction.category == "Business" %}selected{% endif %}>
+                        Business
+                    </option>
+
+                    <option value="Freelance"
+                        {% if transaction.category == "Freelance" %}selected{% endif %}>
+                        Freelance
+                    </option>
+
+                    <option value="Food"
+                        {% if transaction.category == "Food" %}selected{% endif %}>
+                        Food
+                    </option>
+
+                    <option value="Shopping"
+                        {% if transaction.category == "Shopping" %}selected{% endif %}>
+                        Shopping
+                    </option>
+
+                    <option value="Transport"
+                        {% if transaction.category == "Transport" %}selected{% endif %}>
+                        Transport
+                    </option>
+
+                    <option value="Bills"
+                        {% if transaction.category == "Bills" %}selected{% endif %}>
+                        Bills
+                    </option>
+
+                    <option value="Education"
+                        {% if transaction.category == "Education" %}selected{% endif %}>
+                        Education
+                    </option>
+
+                    <option value="Entertainment"
+                        {% if transaction.category == "Entertainment" %}selected{% endif %}>
+                        Entertainment
+                    </option>
+
+                    <option value="Health"
+                        {% if transaction.category == "Health" %}selected{% endif %}>
+                        Health
+                    </option>
+
+                    <option value="Other"
+                        {% if transaction.category == "Other" %}selected{% endif %}>
+                        Other
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <!-- Description -->
+
+            <div class="form-group">
+
+                <label for="description">
+                    Description
+                </label>
+
+                <textarea
+                    id="description"
+                    name="description"
+                    placeholder="Enter transaction description"
+                >{{ transaction.description or "" }}</textarea>
+
+            </div>
+
+
+            <!-- Payment Method -->
+
+            <div class="form-group">
+
+                <label for="payment_method">
+                    Payment Method
+                </label>
+
+                <select
+                    id="payment_method"
+                    name="payment_method"
+                    required
+                >
+
+                    <option value="Cash"
+                        {% if transaction.payment_method == "Cash" %}selected{% endif %}>
+                        Cash
+                    </option>
+
+                    <option value="UPI"
+                        {% if transaction.payment_method == "UPI" %}selected{% endif %}>
+                        UPI
+                    </option>
+
+                    <option value="Debit Card"
+                        {% if transaction.payment_method == "Debit Card" %}selected{% endif %}>
+                        Debit Card
+                    </option>
+
+                    <option value="Credit Card"
+                        {% if transaction.payment_method == "Credit Card" %}selected{% endif %}>
+                        Credit Card
+                    </option>
+
+                    <option value="Bank Transfer"
+                        {% if transaction.payment_method == "Bank Transfer" %}selected{% endif %}>
+                        Bank Transfer
+                    </option>
+
+                    <option value="Other"
+                        {% if transaction.payment_method == "Other" %}selected{% endif %}>
+                        Other
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <!-- Date -->
+
+            <div class="form-group">
+
+                <label for="transaction_date">
+                    Transaction Date
+                </label>
+
+                <input
+                    type="date"
+                    id="transaction_date"
+                    name="transaction_date"
+                    value="{{ transaction.transaction_date }}"
+                    required
+                >
+
+            </div>
+
+
+            <!-- Buttons -->
+
+            <div class="buttons">
+
+                <a
+                    href="{{ url_for('transactions.transactions') }}"
+                    class="btn cancel-btn"
+                >
+                    Cancel
+                </a>
+
+                <button
+                    type="submit"
+                    class="btn save-btn"
+                >
+                    Update Transaction
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

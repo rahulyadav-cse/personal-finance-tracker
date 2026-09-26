@@ -1,0 +1,1218 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Settings - Finance Tracker</title>
+
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f4f7fb;
+            color: #13233f;
+            min-height: 100vh;
+        }
+
+
+        /* =========================
+           SIDEBAR
+        ========================= */
+
+        .sidebar {
+
+            position: fixed;
+
+            left: 0;
+            top: 0;
+
+            width: 240px;
+            height: 100vh;
+
+            background: #111827;
+
+            color: white;
+
+            padding: 28px 20px;
+
+            z-index: 1000;
+        }
+
+
+        .logo {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+            font-size: 24px;
+
+            font-weight: 700;
+
+            margin-bottom: 45px;
+
+            padding-left: 18px;
+        }
+
+
+        .logo-icon {
+            font-size: 28px;
+        }
+
+
+        .nav-menu {
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 8px;
+        }
+
+
+        .nav-link {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 14px;
+
+            width: 100%;
+
+            min-height: 58px;
+
+            padding: 14px 18px;
+
+            color: #e5e7eb;
+
+            text-decoration: none;
+
+            font-size: 17px;
+
+            font-weight: 500;
+
+            border-radius: 12px;
+
+            transition: 0.2s ease;
+        }
+
+
+        .nav-link:hover {
+
+            background: #1f2937;
+
+            color: white;
+        }
+
+
+        .nav-link.active {
+
+            background: #2563eb;
+
+            color: white;
+        }
+
+
+        .nav-icon {
+
+            width: 26px;
+
+            text-align: center;
+
+            font-size: 19px;
+        }
+
+
+        .logout-link {
+
+            margin-top: 20px;
+
+            color: #fca5a5;
+        }
+
+
+        .logout-link:hover {
+
+            background: #3f1d1d;
+
+            color: #fecaca;
+        }
+
+
+        /* =========================
+           MAIN CONTENT
+        ========================= */
+
+        .main-content {
+
+            margin-left: 240px;
+
+            min-height: 100vh;
+
+            padding: 45px 55px;
+        }
+
+
+        .top-header {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: flex-start;
+
+            margin-bottom: 35px;
+        }
+
+
+        .page-title {
+
+            font-size: 46px;
+
+            line-height: 1.1;
+
+            font-weight: 700;
+
+            color: #13233f;
+
+            margin-bottom: 10px;
+        }
+
+
+        .page-subtitle {
+
+            font-size: 20px;
+
+            color: #64748b;
+        }
+
+
+        .user-box {
+
+            background: white;
+
+            padding: 17px 28px;
+
+            border-radius: 16px;
+
+            box-shadow:
+                0 5px 20px rgba(15, 23, 42, 0.08);
+
+            font-size: 18px;
+
+            color: #13233f;
+
+            font-weight: 600;
+        }
+
+
+        /* =========================
+           CARDS
+        ========================= */
+
+        .settings-card {
+
+            background: white;
+
+            border-radius: 18px;
+
+            padding: 35px 45px;
+
+            margin-bottom: 30px;
+
+            box-shadow:
+                0 5px 25px rgba(15, 23, 42, 0.07);
+        }
+
+
+        .card-title {
+
+            font-size: 30px;
+
+            font-weight: 700;
+
+            color: #13233f;
+
+            margin-bottom: 8px;
+        }
+
+
+        .card-description {
+
+            font-size: 17px;
+
+            color: #64748b;
+
+            margin-bottom: 30px;
+        }
+
+
+        /* =========================
+           PROFILE
+        ========================= */
+
+        .profile {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 25px;
+        }
+
+
+        .profile-avatar {
+
+            width: 86px;
+
+            height: 86px;
+
+            border-radius: 50%;
+
+            background: #2563eb;
+
+            color: white;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            font-size: 36px;
+
+            font-weight: 700;
+        }
+
+
+        .profile-name {
+
+            font-size: 27px;
+
+            font-weight: 700;
+
+            color: #13233f;
+
+            margin-bottom: 5px;
+        }
+
+
+        .profile-email {
+
+            font-size: 17px;
+
+            color: #64748b;
+        }
+
+
+        /* =========================
+           SETTINGS ROW
+        ========================= */
+
+        .setting-row {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            padding: 22px 0;
+
+            border-bottom:
+                1px solid #e5e7eb;
+
+            gap: 30px;
+        }
+
+
+        .setting-row:last-child {
+
+            border-bottom: none;
+        }
+
+
+        .setting-info {
+
+            flex: 1;
+        }
+
+
+        .setting-title {
+
+            font-size: 19px;
+
+            font-weight: 600;
+
+            color: #13233f;
+
+            margin-bottom: 6px;
+        }
+
+
+        .setting-description {
+
+            font-size: 15px;
+
+            color: #64748b;
+
+            line-height: 1.5;
+        }
+
+
+        .setting-control {
+
+            min-width: 230px;
+
+            text-align: right;
+        }
+
+
+        /* =========================
+           SELECT
+        ========================= */
+
+        select {
+
+            width: 100%;
+
+            padding: 12px 14px;
+
+            border:
+                1px solid #cbd5e1;
+
+            border-radius: 10px;
+
+            background: white;
+
+            color: #13233f;
+
+            font-size: 16px;
+
+            outline: none;
+        }
+
+
+        select:focus {
+
+            border-color: #2563eb;
+        }
+
+
+        /* =========================
+           TOGGLE
+        ========================= */
+
+        .toggle {
+
+            position: relative;
+
+            width: 52px;
+
+            height: 28px;
+
+            display: inline-block;
+        }
+
+
+        .toggle input {
+
+            display: none;
+        }
+
+
+        .slider {
+
+            position: absolute;
+
+            cursor: pointer;
+
+            inset: 0;
+
+            background: #cbd5e1;
+
+            border-radius: 30px;
+
+            transition: 0.3s;
+        }
+
+
+        .slider:before {
+
+            content: "";
+
+            position: absolute;
+
+            width: 22px;
+
+            height: 22px;
+
+            left: 3px;
+
+            top: 3px;
+
+            background: white;
+
+            border-radius: 50%;
+
+            transition: 0.3s;
+        }
+
+
+        .toggle input:checked + .slider {
+
+            background: #2563eb;
+        }
+
+
+        .toggle input:checked + .slider:before {
+
+            transform: translateX(24px);
+        }
+
+
+        /* =========================
+           INFORMATION
+        ========================= */
+
+        .info-box {
+
+            background: #f8fafc;
+
+            border:
+                1px solid #e2e8f0;
+
+            border-radius: 12px;
+
+            padding: 20px;
+
+            margin-top: 15px;
+        }
+
+
+        .info-row {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            padding: 10px 0;
+
+            font-size: 15px;
+        }
+
+
+        .info-label {
+
+            color: #64748b;
+        }
+
+
+        .info-value {
+
+            color: #13233f;
+
+            font-weight: 600;
+        }
+
+
+        /* =========================
+           RESPONSIVE
+        ========================= */
+
+        @media (max-width: 1000px) {
+
+            .sidebar {
+
+                width: 230px;
+            }
+
+
+            .main-content {
+
+                margin-left: 230px;
+
+                padding: 30px;
+            }
+
+
+            .logo {
+
+                font-size: 20px;
+            }
+
+
+            .nav-link {
+
+                font-size: 15px;
+            }
+
+
+            .page-title {
+
+                font-size: 38px;
+            }
+
+        }
+
+
+        @media (max-width: 750px) {
+
+            .sidebar {
+
+                position: relative;
+
+                width: 100%;
+
+                height: auto;
+            }
+
+
+            .main-content {
+
+                margin-left: 0;
+
+                padding: 25px;
+            }
+
+
+            .top-header {
+
+                flex-direction: column;
+
+                gap: 20px;
+            }
+
+
+            .setting-row {
+
+                flex-direction: column;
+
+                align-items: flex-start;
+            }
+
+
+            .setting-control {
+
+                width: 100%;
+
+                text-align: left;
+            }
+
+
+            .settings-card {
+
+                padding: 25px 20px;
+            }
+
+
+            .page-title {
+
+                font-size: 34px;
+            }
+
+
+            .profile {
+
+                align-items: flex-start;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =========================
+         SIDEBAR
+    ========================= -->
+
+    <aside class="sidebar">
+
+
+        <div class="logo">
+
+            <span class="logo-icon">
+                💰
+            </span>
+
+            <span>
+                Finance Tracker
+            </span>
+
+        </div>
+
+
+        <nav class="nav-menu">
+
+
+            <a href="{{ url_for('dashboard.dashboard') }}"
+               class="nav-link">
+
+                <span class="nav-icon">
+                    🏠
+                </span>
+
+                <span>
+                    Dashboard
+                </span>
+
+            </a>
+
+
+            <a href="{{ url_for('transactions.transactions') }}"
+               class="nav-link">
+
+                <span class="nav-icon">
+                    💳
+                </span>
+
+                <span>
+                    Transactions
+                </span>
+
+            </a>
+
+
+            <a href="{{ url_for('budgets.budgets') }}"
+               class="nav-link">
+
+                <span class="nav-icon">
+                    📊
+                </span>
+
+                <span>
+                    Budgets
+                </span>
+
+            </a>
+
+
+            <a href="{{ url_for('goals.goals') }}"
+               class="nav-link">
+
+                <span class="nav-icon">
+                    🎯
+                </span>
+
+                <span>
+                    Goals
+                </span>
+
+            </a>
+
+
+            <a href="{{ url_for('reports.reports') }}"
+               class="nav-link">
+
+                <span class="nav-icon">
+                    📄
+                </span>
+
+                <span>
+                    Reports
+                </span>
+
+            </a>
+
+
+            <a href="{{ url_for('settings.settings') }}"
+               class="nav-link active">
+
+                <span class="nav-icon">
+                    ⚙️
+                </span>
+
+                <span>
+                    Settings
+                </span>
+
+            </a>
+
+
+            <a href="{{ url_for('auth.logout') }}"
+               class="nav-link logout-link">
+
+                <span class="nav-icon">
+                    🚪
+                </span>
+
+                <span>
+                    Logout
+                </span>
+
+            </a>
+
+
+        </nav>
+
+    </aside>
+
+
+
+    <!-- =========================
+         MAIN CONTENT
+    ========================= -->
+
+    <main class="main-content">
+
+
+        <!-- HEADER -->
+
+        <div class="top-header">
+
+
+            <div>
+
+                <h1 class="page-title">
+                    Settings
+                </h1>
+
+
+                <p class="page-subtitle">
+                    Manage your Finance Tracker preferences
+                </p>
+
+            </div>
+
+
+
+            <div class="user-box">
+
+
+                {% if current_user.name is defined
+                      and current_user.name %}
+
+                    {{ current_user.name }}
+
+
+                {% elif current_user.email is defined %}
+
+                    {{ current_user.email.split('@')[0] }}
+
+
+                {% else %}
+
+                    User
+
+                {% endif %}
+
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- =========================
+             PROFILE
+        ========================= -->
+
+        <section class="settings-card">
+
+
+            <h2 class="card-title">
+                Profile
+            </h2>
+
+
+            <p class="card-description">
+                Your account information
+            </p>
+
+
+            <div class="profile">
+
+
+                <div class="profile-avatar">
+
+
+                    {% if current_user.name is defined
+                          and current_user.name %}
+
+                        {{ current_user.name[0]|upper }}
+
+
+                    {% elif current_user.email is defined %}
+
+                        {{ current_user.email[0]|upper }}
+
+
+                    {% else %}
+
+                        U
+
+                    {% endif %}
+
+
+                </div>
+
+
+
+                <div>
+
+
+                    <div class="profile-name">
+
+
+                        {% if current_user.name is defined
+                              and current_user.name %}
+
+                            {{ current_user.name }}
+
+
+                        {% elif current_user.email is defined %}
+
+                            {{ current_user.email.split('@')[0] }}
+
+
+                        {% else %}
+
+                            User
+
+                        {% endif %}
+
+
+                    </div>
+
+
+
+                    <div class="profile-email">
+
+
+                        {% if current_user.email is defined %}
+
+                            {{ current_user.email }}
+
+
+                        {% else %}
+
+                            Email not available
+
+                        {% endif %}
+
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =========================
+             APPLICATION SETTINGS
+        ========================= -->
+
+        <section class="settings-card">
+
+
+            <h2 class="card-title">
+                Application Settings
+            </h2>
+
+
+            <p class="card-description">
+                Customize how your Finance Tracker works.
+            </p>
+
+
+
+            <!-- CURRENCY -->
+
+            <div class="setting-row">
+
+
+                <div class="setting-info">
+
+
+                    <div class="setting-title">
+                        Currency
+                    </div>
+
+
+                    <div class="setting-description">
+                        Select the currency used in your financial records.
+                    </div>
+
+
+                </div>
+
+
+
+                <div class="setting-control">
+
+
+                    <select id="currency">
+
+
+                        <option value="INR" selected>
+                            ₹ Indian Rupee
+                        </option>
+
+
+                        <option value="USD">
+                            $ US Dollar
+                        </option>
+
+
+                        <option value="EUR">
+                            € Euro
+                        </option>
+
+
+                        <option value="GBP">
+                            £ British Pound
+                        </option>
+
+
+                    </select>
+
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- NOTIFICATIONS -->
+
+            <div class="setting-row">
+
+
+                <div class="setting-info">
+
+
+                    <div class="setting-title">
+                        Notifications
+                    </div>
+
+
+                    <div class="setting-description">
+                        Enable notifications for your financial activities.
+                    </div>
+
+
+                </div>
+
+
+
+                <div class="setting-control">
+
+
+                    <label class="toggle">
+
+
+                        <input
+                            type="checkbox"
+                            id="notifications"
+                            checked
+                        >
+
+
+                        <span class="slider"></span>
+
+
+                    </label>
+
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- AUTOMATIC CALCULATIONS -->
+
+            <div class="setting-row">
+
+
+                <div class="setting-info">
+
+
+                    <div class="setting-title">
+                        Automatic Calculations
+                    </div>
+
+
+                    <div class="setting-description">
+                        Automatically calculate income, expenses and balance.
+                    </div>
+
+
+                </div>
+
+
+
+                <div class="setting-control">
+
+
+                    <label class="toggle">
+
+
+                        <input
+                            type="checkbox"
+                            id="autoCalculation"
+                            checked
+                        >
+
+
+                        <span class="slider"></span>
+
+
+                    </label>
+
+
+                </div>
+
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =========================
+             ACCOUNT INFORMATION
+        ========================= -->
+
+        <section class="settings-card">
+
+
+            <h2 class="card-title">
+                Account Information
+            </h2>
+
+
+            <p class="card-description">
+                Information about your Finance Tracker account.
+            </p>
+
+
+
+            <div class="info-box">
+
+
+                <div class="info-row">
+
+
+                    <span class="info-label">
+                        Account Name
+                    </span>
+
+
+                    <span class="info-value">
+
+
+                        {% if current_user.name is defined
+                              and current_user.name %}
+
+                            {{ current_user.name }}
+
+
+                        {% elif current_user.email is defined %}
+
+                            {{ current_user.email.split('@')[0] }}
+
+
+                        {% else %}
+
+                            User
+
+                        {% endif %}
+
+
+                    </span>
+
+
+                </div>
+
+
+
+                <div class="info-row">
+
+
+                    <span class="info-label">
+                        Email
+                    </span>
+
+
+                    <span class="info-value">
+
+
+                        {% if current_user.email is defined %}
+
+                            {{ current_user.email }}
+
+
+                        {% else %}
+
+                            Not available
+
+                        {% endif %}
+
+
+                    </span>
+
+
+                </div>
+
+
+
+                <div class="info-row">
+
+
+                    <span class="info-label">
+                        Account Status
+                    </span>
+
+
+                    <span class="info-value">
+                        Active
+                    </span>
+
+
+                </div>
+
+
+            </div>
+
+
+        </section>
+
+
+    </main>
+
+
+</body>
+
+</html>
