@@ -9,9 +9,15 @@ os.makedirs(DATABASE_DIR, exist_ok=True)
 
 
 class Config:
-    SECRET_KEY = "change-this-secret-key"
+    SECRET_KEY = os.environ.get(
+        "SECRET_KEY",
+        "change-this-secret-key"
+    )
 
-    SQLALCHEMY_DATABASE_URI = (
+    # Use PostgreSQL on Render
+    # Use SQLite locally
+    SQLALCHEMY_DATABASE_URI = os.environ.get(
+        "DATABASE_URL",
         "sqlite:///" + os.path.join(DATABASE_DIR, "finance.db")
     )
 

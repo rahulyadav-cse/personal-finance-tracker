@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Edit Goal - Personal Finance Tracker</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f4f7fb;
+            color: #172033;
+        }
+
+        /* SIDEBAR */
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 240px;
+            height: 100vh;
+            background: #111827;
+            color: white;
+            padding: 25px 15px;
+        }
+
+        .logo {
+            font-size: 16px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .menu {
+            list-style: none;
+        }
+
+        .menu a {
+            display: block;
+            padding: 13px 15px;
+            color: #d1d5db;
+            text-decoration: none;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            transition: 0.2s;
+        }
+
+        .menu a:hover {
+            background: #1f2937;
+            color: white;
+        }
+
+        .logout {
+            color: #fca5a5 !important;
+        }
+
+        /* MAIN */
+        .main {
+            margin-left: 240px;
+            padding: 35px;
+            min-height: 100vh;
+        }
+
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .topbar h1 {
+            font-size: 30px;
+            margin-bottom: 6px;
+        }
+
+        .topbar p {
+            color: #777;
+            font-size: 15px;
+        }
+
+        .user-name {
+            background: white;
+            padding: 10px 16px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+        }
+
+        /* CARD */
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 3px 15px rgba(0, 0, 0, 0.07);
+            max-width: 850px;
+        }
+
+        .card h2 {
+            font-size: 22px;
+            margin-bottom: 25px;
+        }
+
+        /* FORM */
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group.full {
+            grid-column: 1 / -1;
+        }
+
+        label {
+            font-size: 14px;
+            color: #374151;
+            margin-bottom: 7px;
+        }
+
+        input,
+        select {
+            height: 46px;
+            width: 100%;
+            padding: 0 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 7px;
+            outline: none;
+            font-size: 14px;
+            background: white;
+        }
+
+        input:focus,
+        select:focus {
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.10);
+        }
+
+        /* BUTTONS */
+        .actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 25px;
+        }
+
+        .btn {
+            border: none;
+            background: #2563eb;
+            color: white;
+            text-decoration: none;
+            padding: 13px 20px;
+            border-radius: 7px;
+            font-size: 14px;
+            cursor: pointer;
+            display: inline-block;
+        }
+
+        .btn:hover {
+            background: #1d4ed8;
+        }
+
+        .btn-secondary {
+            background: #e5e7eb;
+            color: #374151;
+        }
+
+        .btn-secondary:hover {
+            background: #d1d5db;
+        }
+
+        /* ALERT */
+        .alert {
+            padding: 14px 18px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            max-width: 850px;
+        }
+
+        .alert-success {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .alert-danger {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        /* MOBILE */
+        @media (max-width: 700px) {
+            .sidebar {
+                position: relative;
+                width: 100%;
+                height: auto;
+            }
+
+            .main {
+                margin-left: 0;
+                padding: 20px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-group.full {
+                grid-column: auto;
+            }
+
+            .topbar {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+
+        <div class="logo">
+            💰 Finance Tracker
+        </div>
+
+        <nav class="menu">
+
+            <a href="{{ url_for('dashboard.dashboard') }}">
+                🏠 Dashboard
+            </a>
+
+            <a href="{{ url_for('transactions.transactions') }}">
+                💳 Transactions
+            </a>
+
+            <a href="{{ url_for('budgets.budgets') }}">
+                📊 Budgets
+            </a>
+
+            <a href="{{ url_for('goals.goals') }}">
+                🎯 Goals
+            </a>
+
+            <a href="{{ url_for('reports.reports') }}">
+                📄 Reports
+            </a>
+
+            <a href="{{ url_for('settings.settings') }}">
+                ⚙️ Settings
+            </a>
+
+            <a href="{{ url_for('auth.logout') }}" class="logout">
+                🚪 Logout
+            </a>
+
+        </nav>
+
+    </div>
+
+
+    <!-- MAIN -->
+    <div class="main">
+
+        <!-- TOP BAR -->
+        <div class="topbar">
+
+            <div>
+                <h1>Edit Goal</h1>
+
+                <p>
+                    Update your financial goal
+                </p>
+            </div>
+
+            <div class="user-name">
+                {{ current_user.name }}
+            </div>
+
+        </div>
+
+
+        <!-- FLASH MESSAGES -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+
+            {% if messages %}
+
+                {% for category, message in messages %}
+
+                    <div class="alert alert-{{ category }}">
+                        {{ message }}
+                    </div>
+
+                {% endfor %}
+
+            {% endif %}
+
+        {% endwith %}
+
+
+        <!-- EDIT FORM -->
+        <div class="card">
+
+            <h2>
+                🎯 Edit "{{ goal.name }}"
+            </h2>
+
+            <form
+                method="POST"
+                action="{{ url_for('goals.edit_goal', goal_id=goal.id) }}"
+            >
+
+                <div class="form-grid">
+
+                    <!-- GOAL NAME -->
+                    <div class="form-group">
+
+                        <label for="name">
+                            Goal Name
+                        </label>
+
+                        <input
+                            type="text"
+                            id="name"
+                            name="name"
+                            value="{{ goal.name }}"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- CATEGORY -->
+                    <div class="form-group">
+
+                        <label for="category">
+                            Category
+                        </label>
+
+                        <input
+                            type="text"
+                            id="category"
+                            name="category"
+                            value="{{ goal.category or '' }}"
+                            placeholder="e.g. Education, Travel"
+                        >
+
+                    </div>
+
+
+                    <!-- TARGET AMOUNT -->
+                    <div class="form-group">
+
+                        <label for="target_amount">
+                            Target Amount (₹)
+                        </label>
+
+                        <input
+                            type="number"
+                            id="target_amount"
+                            name="target_amount"
+                            value="{{ goal.target_amount }}"
+                            min="1"
+                            step="0.01"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- CURRENT AMOUNT -->
+                    <div class="form-group">
+
+                        <label for="current_amount">
+                            Current Amount (₹)
+                        </label>
+
+                        <input
+                            type="number"
+                            id="current_amount"
+                            name="current_amount"
+                            value="{{ goal.current_amount or 0 }}"
+                            min="0"
+                            step="0.01"
+                        >
+
+                    </div>
+
+
+                    <!-- TARGET DATE -->
+                    <div class="form-group">
+
+                        <label for="target_date">
+                            Target Date
+                        </label>
+
+                        <input
+                            type="date"
+                            id="target_date"
+                            name="target_date"
+                            value="{% if goal.target_date %}{{ goal.target_date.strftime('%Y-%m-%d') }}{% endif %}"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- ACTION BUTTONS -->
+                    <div class="form-group full">
+
+                        <div class="actions">
+
+                            <button
+                                type="submit"
+                                class="btn"
+                            >
+                                💾 Save Changes
+                            </button>
+
+                            <a
+                                href="{{ url_for('goals.goals') }}"
+                                class="btn btn-secondary"
+                            >
+                                ← Cancel
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</body>
+</html>
